@@ -1,7 +1,8 @@
 import React from "react"
-import { useAuth } from "../../contexts/AuthContext"
+import { useAuth } from "../../hooks/useAuth"
 import styled from "styled-components"
 import { devices } from "../../styles/styledComponents"
+import { useSelector } from "react-redux"
 
 const StyledCurrentUser = styled.p`
 display: none;
@@ -14,7 +15,7 @@ display: none;
 `
 
 const UserInfoMobile = () => {
-  const { currentUser } = useAuth()
+  const currentUser = useSelector((state) => state.auth.value)
 
   return <StyledCurrentUser>{currentUser?.email}</StyledCurrentUser>
 }

@@ -1,9 +1,10 @@
 import React from 'react'
-import { useAuth } from "../../contexts/AuthContext"
+import { useAuth } from "../../hooks/useAuth"
 import { signOut } from "../../firebase/auth"
 import styled from 'styled-components'
 import Button from '../common/Button'
 import { devices } from '../../styles/styledComponents'
+import { useSelector } from 'react-redux'
 
 const UserInfoWrapper = styled.div`
 display: flex;
@@ -17,12 +18,12 @@ const StyledCurrentUser = styled.p`
 `
 
 const UserInfo = () => {
-    const { userLoggedIn, currentUser } = useAuth()
+    const currentUser = useSelector((state) => state.auth.value)
     console.log(currentUser)
     return (
         <UserInfoWrapper>
             <StyledCurrentUser>{currentUser?.email}</StyledCurrentUser>
-            {userLoggedIn && <Button onClickFunction={signOut} text="Logout" buttonType="secondary"/>}
+            {currentUser && <Button onClickFunction={signOut} text="Logout" buttonType="secondary"/>}
         </UserInfoWrapper>
     )
 }
