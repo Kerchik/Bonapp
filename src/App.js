@@ -1,25 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import LoginView from './components/views/loginViews/LoginView';
+import UserViewContainer from './components/views/userViews/UserViewContainer'
+import WaiterViewContainer from './components/views/waiterViews/WaiterViewContainer'
+import KitchenViewContainer from './components/views/kitchenViews/KitchenViewContainer'
+import { useAuth } from "./contexts/AuthContext";
+import Header from './components/header/Header'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const { userLoggedIn, currentUser } = useAuth()
+
+	const loggedInViews = () => {
+		const role = currentUser.role
+
+		if (!role) return null
+
+		switch (role) {
+			case '0':
+				return <UserViewContainer />
+			case '1':
+				return <WaiterViewContainer />
+			case '2':
+				return <KitchenViewContainer />
+		}
+	}
+
+	return (
+			<div className="App">
+				<Header />
+				<main>
+					{!userLoggedIn && <LoginView />}
+					{userLoggedIn && loggedInViews()}
+				</main>
+			</div>
+	)
 }
 
-export default App;
+export default App
