@@ -36,11 +36,11 @@ max-width: 300px;
 const Input = styled.input`
 padding: 7px;
 font-size: 18px;
-border: 1px solid ${props => props.error ? '#FF0000' : '#000000'};
+border: 1px solid ${({ $error }) => $error ? '#FF0000' : '#000000'};
 border-radius: 6px;
 `
 const Label = styled.label`
-color: ${props => props.error ? '#FF0000' : '#000000'};
+color: ${({ $error }) => $error ? '#FF0000' : '#000000'};
 font-weight: 500;
 `
 
@@ -78,15 +78,33 @@ const LoginView = () => {
         <StyledFormWrapper>
             <StyledForm onSubmit={signIn}>
                 <InputWrapper>
-                    <Label error={error}>Email</Label>
-                    <Input value={email} onChange={handleEmailChange} type='email' placeholder='email' error={error}/>
+                    <Label $error={error} htmlFor='email'>Email</Label>
+                    <Input
+                        id='email'
+                        data-testid='email'
+                        value={email} 
+                        onChange={handleEmailChange} 
+                        name='email' 
+                        type='email' 
+                        placeholder='email' 
+                        $error={error}
+                    />
                 </InputWrapper>
                 <InputWrapper>
-                    <Label error={error}>Password</Label>
-                    <Input value={password} onChange={handlePasswordChange} type='password' placeholder='password' error={error}/>
+                    <Label $error={error} htmlFor='password'>Password</Label>
+                    <Input 
+                        id='password'
+                        data-testid='password'
+                        value={password} 
+                        onChange={handlePasswordChange} 
+                        name='password' 
+                        type='password' 
+                        placeholder='password' 
+                        $error={error}
+                    />
                 </InputWrapper>
                 <ButtonWrapper>
-                    <Button type='submit' buttonType={'primary'} text='Login' fullWidth={true}></Button>
+                    <Button type='submit' buttonType={'primary'} text='Login' fullWidth={true} loading={isSigningIn}></Button>
                 </ButtonWrapper>
             </StyledForm>
         </StyledFormWrapper>

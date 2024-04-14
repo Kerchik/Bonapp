@@ -1,8 +1,7 @@
-import React from "react"
-import { useAuth } from "../../hooks/useAuth"
-import styled from "styled-components"
-import { devices } from "../../styles/styledComponents"
-import { useSelector } from "react-redux"
+import React from 'react'
+import styled from 'styled-components'
+import { devices } from '../../styles/styledComponents'
+import { useSelector } from 'react-redux'
 
 const StyledCurrentUser = styled.p`
 display: none;

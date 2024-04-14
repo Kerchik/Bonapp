@@ -9,6 +9,7 @@ margin: 0 20px;
 
 const UserViewContainer = () => {
   const [menuItems, setMenuItems] = useState([])
+  const [loadingElement, setLoadingElement] = useState(null)
 
   const setMenuItemsHandler = async () => {
     const unparsedMenuItems = await getMenuItems()
@@ -16,7 +17,14 @@ const UserViewContainer = () => {
   }
 
   const orderMenuItem = async (itemId) => {
-    await orderFood(itemId)
+    try {
+      setLoadingElement(itemId)
+      await orderFood(itemId)
+    } catch (e) {
+      console.error(e)
+    } finally {
+      setLoadingElement(null)
+    }
   }
 
   useEffect(() => {
@@ -25,7 +33,7 @@ const UserViewContainer = () => {
 
   return (
     <UserViewContainerWrapper>
-      <UserView menuItems={menuItems} orderMenuItemCallback={orderMenuItem}/>
+      <UserView menuItems={menuItems} orderMenuItemCallback={orderMenuItem} loadingElement={loadingElement}/>
     </UserViewContainerWrapper>
   )
 }

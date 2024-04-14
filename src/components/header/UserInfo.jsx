@@ -1,6 +1,5 @@
 import React from 'react'
-import { useAuth } from "../../hooks/useAuth"
-import { signOut } from "../../firebase/auth"
+import { signOut } from '../../firebase/auth'
 import styled from 'styled-components'
 import Button from '../common/Button'
 import { devices } from '../../styles/styledComponents'
@@ -19,11 +18,10 @@ const StyledCurrentUser = styled.p`
 
 const UserInfo = () => {
     const currentUser = useSelector((state) => state.auth.value)
-    console.log(currentUser)
     return (
         <UserInfoWrapper>
             <StyledCurrentUser>{currentUser?.email}</StyledCurrentUser>
-            {currentUser && <Button onClickFunction={signOut} text="Logout" buttonType="secondary"/>}
+            {currentUser && <Button onClickFunction={signOut} text='Logout' buttonType='secondary' />}
         </UserInfoWrapper>
     )
 }

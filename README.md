@@ -1,32 +1,41 @@
+Bonapp example app.
+
+This app has 4 views: LoginView, UserView, WaiterView, KitchenView.
+
+In LoginView there is a login form, that will help you authenticate to the site.
+In task description, registration functionality was not mentioned, so please use one of those login data:
+
 kitchen@kitchen.com kitchen
 waiter@waiter.com waiter
 user@user.com useruser
 
-My firebase data loooks like this:
-"users": {
-"-NvB*L84e8eNB3JbSnT*": {
-"role": "0",
-"uid": "4QPdu3ALD1WnIqrgHG546cBjvD72"
-    },
-"-NvB_VTSNitvxwL3U42l": {
-"role": "1",
-"uid": "0l0ixLcCWUdeLTfYuNIY55kNSuA2"
-    },
-"-NvB_bino6MIv2tvT6QV": {
-"role": "2",
-"uid": "J4tZMdY6lNZEUFA1Oa1DYLBi5nq1"
-    }
-  }
-I managed to get all users data with:
+In UserView(available only for role User), you can see all available food in menu, and also order it.
 
-const db = getDatabase(firebaseApp)
-const dbRef =ref(db, 'users')
-const snapshot = await get(dbRef)
+In WaiterView(available only for role Waiter), you can see all ordered food, and also inititate payment process.
 
-But now i need to get one user data by uid, and I have no idea how to achieve it. The only way how i achieved it was:
-const db = getDatabase(firebaseApp)
-const dbRef =ref(db, 'users/-NvB_bino6MIv2tvT6QV')
-const snapshot = await get(dbRef)
-But this is bad example, because i only know uid, instead of users key. I am new to Firebase, so I would appreciate any help.
+In KitchenView(available only for role Kitchen), you can see both pending orders, and finished orders.
+For pending orders, it is possile to change status to finished.
 
-P.S. I am using react and firebase library
+Folder structure:
+src/
+│
+├── assets/ - Folder with assets(image/gifs etc.)
+├── componenets/
+│ ├── common/ - Common componenets, that might be used in multiple places
+│ ├── header/ - Header elements
+│ └── views/ - All available views(for every role)
+│ ├── loginViews - Login views for unauthorized user
+│ └── userViews - Regular user views
+│ └── waiterViews - waiter views
+│ └── kitchenViews - Kitchen staff views
+├── firebase/ - Folder for firebase configuration
+│ ├── auth.js/ - All logic used for authentification
+│ ├── firebase.js/ - firebase configuration
+├── hooks/ - React hooks
+├── redux/ - Redux
+│ ├── authSlice.js/ - fAuth reducer
+│ ├── store.js/ - Global store configuration
+├── request/ - Folder for REST requests
+├── styles/ - Folder for stylerd-componenets variables
+├── App.js - File, that handles all views
+├── index.js - Root file

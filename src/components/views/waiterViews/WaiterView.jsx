@@ -19,7 +19,7 @@ font-weight: 500;
 color: #999999l
 `
 
-const WaiterView = ({orderItems, payForOrderCallback}) => {
+const WaiterView = ({orderItems, payForOrderCallback, loadingElement}) => {
     return (
         <WaiterViewList>
             <h3>Orders</h3>
@@ -34,6 +34,7 @@ const WaiterView = ({orderItems, payForOrderCallback}) => {
                             <Button 
                                 text='Pay'
                                 buttonType='primary'
+                                loading={loadingElement ? loadingElement === item.id  : false}
                                 onClickFunction={() => {payForOrderCallback(item.id, item.menuItemId)}}
                             />
                         </FoodItem>

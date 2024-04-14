@@ -14,6 +14,7 @@ margin: 0 20px;
 
 const WaiterViewContainer = () => {
     const [orders, setOrders] = useState([])
+    const [loadingElement, setLoadingElement] = useState(null)
     
     const setOrderItemsHandler = async () => {
         await getOrderItems((data) => {
@@ -22,7 +23,14 @@ const WaiterViewContainer = () => {
     }
 
     const payForOrderHandle = async (orderId, menuItemId) => {
-        await payOrFinishOrder(orderId, menuItemId, ORDER_PENDING_STATUS)
+        try {
+            setLoadingElement(orderId)
+            await payOrFinishOrder(orderId, menuItemId, ORDER_PENDING_STATUS)
+        } catch (e) {
+            console.error(e)
+        } finally {
+            setLoadingElement(null)
+        }
     }
 
     useEffect(() => {
@@ -31,7 +39,7 @@ const WaiterViewContainer = () => {
 
     return (
         <WaiterViewContainerWrapper>
-            <WaiterView orderItems={orders} payForOrderCallback={payForOrderHandle}/>
+            <WaiterView orderItems={orders} payForOrderCallback={payForOrderHandle} loadingElement={loadingElement}/>
         </WaiterViewContainerWrapper>
     )
 }

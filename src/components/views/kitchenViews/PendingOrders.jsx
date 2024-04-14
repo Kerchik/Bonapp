@@ -20,7 +20,7 @@ font-weight: 500;
 color: #999999l
 `
 
-const PendingOrders = ({orderItems, finishOrderCallback}) => {
+const PendingOrders = ({orderItems, finishOrderCallback, loadingElement}) => {
     return (
         <PendingOrdersList>
             <h3>Pending orders</h3>
@@ -35,6 +35,7 @@ const PendingOrders = ({orderItems, finishOrderCallback}) => {
                             <Button 
                                 text='Finish'
                                 buttonType='primary'
+                                loading={loadingElement ? loadingElement === item.id  : false}
                                 onClickFunction={() => {finishOrderCallback(item.id, item.menuItemId)}}
                             />
                         </FoodItem>

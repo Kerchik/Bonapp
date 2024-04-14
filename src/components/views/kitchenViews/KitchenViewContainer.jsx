@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react"
+import React, {useState, useEffect} from 'react'
 import { 
     getOrderItems,
     payOrFinishOrder,
@@ -19,6 +19,7 @@ margin: 0 20px;
 const KitchenViewContainer = () => {
     const [pendingOrders, setPendingOrders] = useState([])
     const [finishedOrders, setFinishedOrders] = useState([])
+    const [loadingElement, setLoadingElement] = useState(null)
 
     const setOrderItemsHandler = async () => {
         await getOrderItems((data) => {
@@ -27,19 +28,26 @@ const KitchenViewContainer = () => {
     }
 
     const filterOrdersByStatus = (orders) => {
-        const pending = [];
-        const finished = [];
+        const pending = []
+        const finished = []
 
         orders.forEach(order => {
             order.status === ORDER_PENDING_STATUS ? pending.push(order) : finished.push(order)
-        });
+        })
 
-        setPendingOrders(pending);
-        setFinishedOrders(finished);
+        setPendingOrders(pending)
+        setFinishedOrders(finished)
     }
 
     const finishOrder = async (orderId, menuItemId) => {
-        payOrFinishOrder(orderId, menuItemId, ORDER_FINISHED_STATUS)
+        try {
+            setLoadingElement(orderId)
+            await payOrFinishOrder(orderId, menuItemId, ORDER_FINISHED_STATUS)
+        } catch (e) {
+            console.error(e)
+        } finally {
+            setLoadingElement(null)
+        }
     }
     
     useEffect(() => {
@@ -48,7 +56,7 @@ const KitchenViewContainer = () => {
 
     return (
         <KitchenViewContainerWrapper>
-            <PendingOrders orderItems={pendingOrders} finishOrderCallback={finishOrder}/>
+            <PendingOrders orderItems={pendingOrders} finishOrderCallback={finishOrder} loadingElement={loadingElement}/>
             <FinishedOrders orderItems={finishedOrders}/>
         </KitchenViewContainerWrapper>    
     )

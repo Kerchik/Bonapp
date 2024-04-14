@@ -1,13 +1,12 @@
-import LoginView from './components/views/loginViews/LoginView';
+import LoginView from './components/views/loginViews/LoginView'
 import UserViewContainer from './components/views/userViews/UserViewContainer'
 import WaiterViewContainer from './components/views/waiterViews/WaiterViewContainer'
 import KitchenViewContainer from './components/views/kitchenViews/KitchenViewContainer'
-import { useAuth } from "./hooks/useAuth";
+import { useAuth } from './hooks/useAuth'
 import Header from './components/header/Header'
-import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux'
 
 function App() {
-	// const { userLoggedIn, currentUser } = useAuth()
 	const isAuthChecked = useAuth()
 	const currentUser = useSelector((state) => state.auth.value)
 
@@ -27,7 +26,7 @@ function App() {
 	}
 
 	return (
-			<div className="App">
+			<div>
 				<Header />
 				<main>
 					{isAuthChecked &&

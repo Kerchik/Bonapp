@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
-import { auth } from '../firebase/firebase';
-import { onAuthStateChanged } from 'firebase/auth';
+import { useEffect, useState } from 'react'
+import { auth } from '../firebase/firebase'
+import { onAuthStateChanged } from 'firebase/auth'
 import { getUserRole } from '../requests/firebaseRequests'
-import { useDispatch } from 'react-redux';
-import { setUser } from '../redux/authSlice';
+import { useDispatch } from 'react-redux'
+import { setUser } from '../redux/authSlice'
 
 export function useAuth() {
   const [isAuthChecked, setIsAuthChecked] = useState(false)
@@ -20,7 +20,7 @@ export function useAuth() {
 
       setIsAuthChecked(true)
     })
-    return unsubscribe;
+    return unsubscribe
   }, [])
 
   return isAuthChecked

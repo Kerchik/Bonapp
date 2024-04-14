@@ -19,7 +19,7 @@ font-weight: 500;
 color: #999999l
 `
 
-const UserView = ({menuItems, orderMenuItemCallback}) => {
+const UserView = ({menuItems, orderMenuItemCallback, loadingElement}) => {
   return (
     <UserViewList>
       <h3>Menu</h3>
@@ -34,6 +34,7 @@ const UserView = ({menuItems, orderMenuItemCallback}) => {
               <Button 
                 text='Order'
                 buttonType='primary'
+                loading={loadingElement ? loadingElement === item.id  : false}
                 onClickFunction={() => orderMenuItemCallback(item.id)}
               />
             </FoodItem>

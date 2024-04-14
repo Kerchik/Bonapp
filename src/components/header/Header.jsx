@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import UserInfo from './UserInfo'
 import UserInfoMobile from './UserInfoMobile'
-import { devices } from "../../styles/styledComponents"
+import { devices } from '../../styles/styledComponents'
 
 const StyledHeader = styled.header`
 padding: 20px;
