@@ -34,7 +34,7 @@ export const getMenuItems = async () => {
     if (snapshot.exists()) {
       return snapshot.val()
     } else {
-      console.error('something')
+      console.error('Error')
     }
 }
 
@@ -74,7 +74,7 @@ export const getUserRole = async (uid) => {
       }
 
     } else {
-      console.error('something')
+      console.error('Error')
     }
 }
 
